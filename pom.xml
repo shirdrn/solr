@@ -8,5 +8,6 @@
 	<name>Solr</name>
 	<modules>
 		<module>solr-indexing</module>
+		<module>solr-webapp</module>
 	</modules>
 </project>

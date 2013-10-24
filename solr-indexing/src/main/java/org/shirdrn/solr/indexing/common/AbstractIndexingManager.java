@@ -14,7 +14,8 @@ import java.util.concurrent.ConcurrentHashMap;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.shirdrn.solr.indexing.common.AbstractIndexer.Status;
+import org.shirdrn.solr.indexing.indexer.AbstractIndexer;
+import org.shirdrn.solr.indexing.indexer.AbstractIndexer.Status;
 import org.shirdrn.solr.indexing.utils.ReflectionUtils;
 import org.shirdrn.solr.indexing.utils.TimeUtils;
 

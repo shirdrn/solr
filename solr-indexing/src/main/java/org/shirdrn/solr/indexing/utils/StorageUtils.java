@@ -14,7 +14,6 @@ import java.util.concurrent.locks.ReentrantLock;
 
 public class StorageUtils {
 
-	private static String DRIVER_CLASS_NAME = "org.apache.hive.jdbc.HiveDriver";
 	private static final  ConcurrentMap<String, Connection> pooledConnections = new ConcurrentHashMap<>(1);
 	private static final Lock lock = new ReentrantLock();
 	static {
@@ -42,9 +41,9 @@ public class StorageUtils {
 		});
 	}
 	
-	public static void loadDrivers() {
+	public static void loadDrivers(String driverClass) {
 		try {
-			Class.forName(DRIVER_CLASS_NAME);
+			Class.forName(driverClass);
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
 			System.exit(1);

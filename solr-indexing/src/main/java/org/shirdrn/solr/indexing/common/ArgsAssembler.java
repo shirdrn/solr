@@ -1,6 +1,6 @@
 package org.shirdrn.solr.indexing.common;
 
-import org.shirdrn.solr.indexing.common.AbstractIndexer.Status;
+import org.shirdrn.solr.indexing.indexer.AbstractIndexer.Status;
 
 public interface ArgsAssembler<T> {
 	T assemble(String[] args) throws Exception;

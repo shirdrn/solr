@@ -22,12 +22,12 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.shirdrn.solr.indexing.common.AbstractIndexer;
 import org.shirdrn.solr.indexing.common.ArgsAssembler;
-import org.shirdrn.solr.indexing.common.AbstractIndexer.Status;
-import org.shirdrn.solr.indexing.executors.DefaultThreadFactory;
+import org.shirdrn.solr.indexing.executors.NamedThreadFactory;
 import org.shirdrn.solr.indexing.executors.ScheduleAgainPolicy;
-import org.shirdrn.solr.indexing.index.standalone.HiveBasedIndexer;
+import org.shirdrn.solr.indexing.indexer.AbstractIndexer;
+import org.shirdrn.solr.indexing.indexer.AbstractIndexer.Status;
+import org.shirdrn.solr.indexing.indexer.component.DBIndexer;
 import org.shirdrn.solr.indexing.utils.FileUtils;
 import org.shirdrn.solr.indexing.utils.ReflectionUtils;
 import org.shirdrn.solr.indexing.utils.TimeUtils;
@@ -69,7 +69,7 @@ public class MultipleTablesIndexingTool {
         	BlockingQueue<Runnable> workQueue = new ArrayBlockingQueue<>(threadPoolSize);
         	pool = new ThreadPoolExecutor(
         			1, threadPoolSize, 120, TimeUnit.SECONDS, workQueue, 
-        			new DefaultThreadFactory("POOL"), new ScheduleAgainPolicy(threadPoolSize));
+        			new NamedThreadFactory("POOL"), new ScheduleAgainPolicy(threadPoolSize));
         } else {
         	System.exit(0);
         }
@@ -217,7 +217,7 @@ public class MultipleTablesIndexingTool {
 			Throwable cause = null;
 			try {
 				String conditions = checkConditions(entry.getValue().tableName);
-				assembler = ReflectionUtils.getInstance(HiveBasedIndexer.Assembler.class);
+				assembler = ReflectionUtils.getInstance(DBIndexer.Assembler.class);
 				try {
 					indexer = assembler.assemble(new String[] {
 							zkHost, String.valueOf(connectTimeout), String.valueOf(clientTimeout), String.valueOf(batchCount), 

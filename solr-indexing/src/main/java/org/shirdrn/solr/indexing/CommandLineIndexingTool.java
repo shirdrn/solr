@@ -10,14 +10,14 @@ import java.util.Map.Entry;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.shirdrn.solr.indexing.common.AbstractIndexer;
 import org.shirdrn.solr.indexing.common.ArgsAssembler;
-import org.shirdrn.solr.indexing.index.hadoop.SolrCloudIndexer;
-import org.shirdrn.solr.indexing.index.standalone.HiveBasedIndexer;
-import org.shirdrn.solr.indexing.index.standalone.IndexDeletionTool;
-import org.shirdrn.solr.indexing.index.standalone.MultiThreadedFileBasedIndexer;
-import org.shirdrn.solr.indexing.index.standalone.MultiThreadedHiveBasedIndexer;
-import org.shirdrn.solr.indexing.index.standalone.SingleThreadFileBasedIndexer;
+import org.shirdrn.solr.indexing.indexer.AbstractIndexer;
+import org.shirdrn.solr.indexing.indexer.component.DBIndexer;
+import org.shirdrn.solr.indexing.indexer.component.FilesIndexer;
+import org.shirdrn.solr.indexing.indexer.component.IndexDeletionTool;
+import org.shirdrn.solr.indexing.indexer.component.MultiThreadedDBIndexer;
+import org.shirdrn.solr.indexing.indexer.component.MultiThreadedFilesIndexer;
+import org.shirdrn.solr.indexing.indexer.mapred.SolrCloudIndexer;
 
 public class CommandLineIndexingTool {
 
@@ -31,10 +31,10 @@ public class CommandLineIndexingTool {
 	static {
 		SolrCloudIndexer indexer = new SolrCloudIndexer();
 		register(indexer.getType(), indexer.getName(), indexer);
-		register(new HiveBasedIndexer.Assembler());
-		register(new MultiThreadedHiveBasedIndexer.Assembler());
-		register(new SingleThreadFileBasedIndexer.Assembler());
-		register(new MultiThreadedFileBasedIndexer.Assembler());
+		register(new DBIndexer.Assembler());
+		register(new MultiThreadedDBIndexer.Assembler());
+		register(new FilesIndexer.Assembler());
+		register(new MultiThreadedFilesIndexer.Assembler());
 		
 		register(new IndexDeletionTool.Assembler());
 	}

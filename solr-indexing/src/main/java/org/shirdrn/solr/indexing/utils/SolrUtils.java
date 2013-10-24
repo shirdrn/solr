@@ -3,8 +3,8 @@ package org.shirdrn.solr.indexing.utils;
 import java.net.MalformedURLException;
 
 import org.apache.solr.client.solrj.impl.CloudSolrServer;
-import org.shirdrn.solr.indexing.conf.ClientConf;
-import org.shirdrn.solr.indexing.index.FieldMappingBuilder;
+import org.shirdrn.solr.indexing.common.config.ClientConf;
+import org.shirdrn.solr.indexing.common.config.FieldMappingBuilder;
 
 public class SolrUtils {
 
